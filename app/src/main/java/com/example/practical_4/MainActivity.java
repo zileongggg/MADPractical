@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             int y = 100;
             int w = 600;
             int h = 100;
+            int y;
 
             drawable = new ShapeDrawable(new ArcShape(0, 360));
             drawable.getPaint().setColor(0xff74AC23);
