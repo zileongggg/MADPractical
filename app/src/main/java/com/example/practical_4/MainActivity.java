@@ -25,34 +25,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /**
-         * Question 3: Draw an Inner Rounded Rectangle and a normal Rectangle
-         * Comment out to see 2 difference code
+         * Question 5: Draw a Pac-Man on onCreate
+         * cannot overlap, so cannot draw eye
          */
-        ShapeDrawable rect = new ShapeDrawable(new RectShape());
-        rect.getPaint().setColor(Color.YELLOW);
-        rect.getPaint().setStyle(Paint.Style.FILL_AND_STROKE);
 
-        // rounded rectangle
-        float [] outerRadii = new float[]{5, 5, 5, 5, 5, 5, 5, 5}; // outer radius value
-        float [] innerRadii = new float[]{5, 5, 5, 5, 5, 5, 5, 5}; // inner radius value
-        RectF insetRectangle = new RectF(10, 10, 10, 10);
+        /*ShapeDrawable pMan = new ShapeDrawable(new ArcShape(40, 290));
+        pMan.setIntrinsicHeight(100);
+        pMan.setIntrinsicWidth(100);
+        pMan.getPaint().setColor(Color.RED);
 
-        ShapeDrawable roundedRect = new ShapeDrawable(new RoundRectShape(outerRadii, insetRectangle, innerRadii));
-        roundedRect.getPaint().setColor(Color.RED);
-
-        // aspect ratio for width and height
-        rect.setIntrinsicHeight(1);
-        rect.setIntrinsicWidth(2);
-        roundedRect.setIntrinsicHeight(50);
-        roundedRect.setIntrinsicWidth(100);
-
-        // Create ImageView to show Rectangle
         ImageView imageView = new ImageView(this);
-        imageView.setImageDrawable(rect);
-        imageView.setImageDrawable(roundedRect);
+        imageView.setImageDrawable(pMan);
+        setContentView(imageView);*/
 
-        // Set content View to ImageView
-        setContentView(imageView);
+        setContentView(new CustomView(this));
     }
 
     public static class CustomView extends View {
@@ -62,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onDraw(Canvas canvas) {
+            /**
+             * Question 5: Draw a Pac-Man on onCreate
+             */
+
+            Paint pManpaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            pManpaint.setColor(Color.YELLOW);
+            canvas.drawArc(new RectF(getWidth()/2-200, 200, getWidth()/2+200, 600),
+                    40, 290, true, pManpaint);
+
+            // small pac man
+            // canvas.drawArc(new RectF(100, 450, 200, 550), 40, 290, true, pManpaint);
+
+            // eye of the pacman
+            pManpaint.setColor(Color.BLACK);
+            canvas.drawCircle(getWidth()/2+20, getWidth()/2-90, 20, pManpaint);
         }
     }
 }
