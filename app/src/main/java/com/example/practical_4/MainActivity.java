@@ -1,8 +1,11 @@
 package com.example.practical_4;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
@@ -16,45 +19,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(new CustomView(this));
     }
 
     public static class CustomView extends View {
-
-        private ShapeDrawable drawable;
-
         public CustomView(Context context) {
             super(context);
         }
 
         @Override
-        protected void onDraw(Canvas canvas) { // canvas is like drawing pad.
+        protected void onDraw(Canvas canvas) {
+
             /**
-             * Question 1: Draw out two different types of fonts under different styles
-             * 1. set the background color.
-             * 2. set the paint color.
-             *    a. ANTI_ALIAS: replace the jagger line with smooth line.
-             * 3. set the fonts size, color, type.
-             * 4. drawing primitive operations / shape
+             *  Question 2: Draw an image to be slanted and flipped
              */
+            Bitmap picture = BitmapFactory.decodeResource(getResources(),R.drawable.mario);
 
-            canvas.drawColor(Color.DKGRAY);
-            Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            // Transformation: Scaling, TRanslation, Rotation, Reflection
+            Matrix matrix = new Matrix();
+            matrix.preScale(0.3f, 0.3f);
+            matrix.preRotate(20);
 
-            Typeface typeface;
-            typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL);
-
-            paint.setColor(Color.GREEN);
-            paint.setTextSize(40);
-            paint.setTypeface(typeface);
-            canvas.drawText("This is my Low-Level_UI using View.", 10, 50, paint);
-
-            Typeface typeface1;
-            typeface1 = Typeface.create(Typeface.SERIF, Typeface.BOLD_ITALIC);
-
-            paint.setColor(Color.parseColor("aqua"));
-            paint.setTypeface(typeface1);
-            canvas.drawText("2ND Low_Level_UI with View", 10, 100, paint);
+            Bitmap transformedPic = Bitmap.createBitmap(picture, 0,0, picture.getWidth(), picture.getHeight(), matrix,false);
+            canvas.drawBitmap(transformedPic, 10, 150, null);
 
         }
     }
