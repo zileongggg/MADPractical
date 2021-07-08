@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.ArcShape;
 import android.os.Bundle;
 import android.view.View;
 
@@ -23,25 +24,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class CustomView extends View {
+
+        private ShapeDrawable drawable;
+
         public CustomView(Context context) {
             super(context);
+
+            // Method 1: Draw shape on CustomView
+            int x = 100;
+            int y = 100;
+            int w = 600;
+            int h = 100;
+
+            drawable = new ShapeDrawable(new ArcShape(0, 360));
+            drawable.getPaint().setColor(0xff74AC23);
+            drawable.setBounds(x, y, x+w, y+h);
         }
 
         @Override
         protected void onDraw(Canvas canvas) {
-
-            /**
-             *  Question 2: Draw an image to be slanted and flipped
-             */
-            Bitmap picture = BitmapFactory.decodeResource(getResources(),R.drawable.mario);
-
-            // Transformation: Scaling, TRanslation, Rotation, Reflection
-            Matrix matrix = new Matrix();
-            matrix.preScale(0.3f, 0.3f);
-            matrix.preRotate(20);
-
-            Bitmap transformedPic = Bitmap.createBitmap(picture, 0,0, picture.getWidth(), picture.getHeight(), matrix,false);
-            canvas.drawBitmap(transformedPic, 10, 150, null);
+            drawable.draw(canvas);
 
         }
     }
