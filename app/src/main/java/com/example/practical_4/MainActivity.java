@@ -7,10 +7,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.ArcShape;
+import android.graphics.drawable.shapes.PathShape;
 import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
@@ -25,20 +27,49 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /**
-         * Question 5: Draw a Pac-Man on onCreate
-         * cannot overlap, so cannot draw eye
+         * Question 5: Draw a simple snake using Path
          */
 
-        /*ShapeDrawable pMan = new ShapeDrawable(new ArcShape(40, 290));
-        pMan.setIntrinsicHeight(100);
-        pMan.setIntrinsicWidth(100);
-        pMan.getPaint().setColor(Color.RED);
+        Path p = new Path();
+        p.moveTo(0, 40); // starting position
+        p.lineTo(25, 15); // next position
+        p.lineTo(30, 30);
+        p.lineTo(32, 45);
+        p.lineTo(30, 60);
+        p.lineTo(28, 85);
+        p.lineTo(40, 90);
+        p.lineTo(50, 70);
+        p.lineTo(53, 55);
+        p.lineTo(56, 55);
+        p.lineTo(65, 85);
+        p.lineTo(80, 90);
+        p.lineTo(85, 87);
+        p.lineTo(90, 85);
+        p.lineTo(87, 90);
+        p.lineTo(80, 100);
+        p.lineTo(63, 90);
+        p.lineTo(55, 65);
+        p.lineTo(50, 85);
+        p.lineTo(42, 100);
+        p.lineTo(25, 90);
+        p.lineTo(27, 50);
+        p.lineTo(25, 25);
+        p.lineTo(7, 50);
+        p.lineTo(20, 25);
+        p.lineTo(0, 40);
 
-        ImageView imageView = new ImageView(this);
-        imageView.setImageDrawable(pMan);
-        setContentView(imageView);*/
+        ShapeDrawable snake = new ShapeDrawable(new PathShape(p, 100, 100));
+        snake.setIntrinsicHeight(1);
+        snake.setIntrinsicWidth(1);
+        snake.getPaint().setColor(Color.RED);
+        snake.getPaint().setStyle(Paint.Style.FILL_AND_STROKE);
 
-        setContentView(new CustomView(this));
+        // set to image View
+        ImageView iv = new ImageView(this);
+        iv.setImageDrawable(snake);
+
+        setContentView(iv);
+//        setContentView(new CustomView(this));
     }
 
     public static class CustomView extends View {
@@ -49,20 +80,41 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onDraw(Canvas canvas) {
             /**
-             * Question 5: Draw a Pac-Man on onCreate
+             * Question 5: Draw a simple snake using Path in on Draw
              */
 
-            Paint pManpaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            pManpaint.setColor(Color.YELLOW);
-            canvas.drawArc(new RectF(getWidth()/2-200, 200, getWidth()/2+200, 600),
-                    40, 290, true, pManpaint);
+/*          Path p = new Path();
+            p.moveTo(0, 40); // starting position
+            p.lineTo(25, 15); // next position
+            p.lineTo(30, 30);
+            p.lineTo(32, 45);
+            p.lineTo(30, 60);
+            p.lineTo(28, 85);
+            p.lineTo(40, 90);
+            p.lineTo(50, 70);
+            p.lineTo(53, 55);
+            p.lineTo(56, 55);
+            p.lineTo(65, 85);
+            p.lineTo(80, 90);
+            p.lineTo(85, 87);
+            p.lineTo(90, 85);
+            p.lineTo(87, 90);
+            p.lineTo(80, 100);
+            p.lineTo(63, 90);
+            p.lineTo(55, 65);
+            p.lineTo(50, 85);
+            p.lineTo(42, 100);
+            p.lineTo(25, 90);
+            p.lineTo(27, 50);
+            p.lineTo(25, 25);
+            p.lineTo(7, 50);
+            p.lineTo(20, 25);
+            p.lineTo(0, 40);
 
-            // small pac man
-            // canvas.drawArc(new RectF(100, 450, 200, 550), 40, 290, true, pManpaint);
-
-            // eye of the pacman
-            pManpaint.setColor(Color.BLACK);
-            canvas.drawCircle(getWidth()/2+20, getWidth()/2-90, 20, pManpaint);
+            Paint snakePaint = new Paint();
+            snakePaint.setColor(Color.CYAN);
+            snakePaint.setStyle(Paint.Style.STROKE); // only the boundary
+            canvas.drawPath(p, snakePaint);*/
         }
     }
 }
