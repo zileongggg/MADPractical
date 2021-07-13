@@ -58,14 +58,14 @@ public class SQLiteAdapter {
         return sqLiteDatabase.delete(MYDATABASE_TABLE, null, null);
     }
 
-    // Question 2
+/*    // Question 2
     public String queueMultipleColumn() {
         String[] columns = new String[]{KEY_CONTENT, KEY_CONTENT_2, VALUE};
         Cursor cursor = sqLiteDatabase.query(MYDATABASE_TABLE, columns,
                 null, null, null, null, VALUE + " DESC");
         String result = "";
 
-        /** Get Column ID*/
+        *//** Get Column ID*//*
         int index_CONTENT = cursor.getColumnIndex(KEY_CONTENT);
         int index_CONTENT_2 = cursor.getColumnIndex(KEY_CONTENT_2);
         int index_CONTENT_3 = cursor.getColumnIndex(VALUE);
@@ -73,6 +73,35 @@ public class SQLiteAdapter {
         for (cursor.moveToFirst(); !(cursor.isAfterLast());
              cursor.moveToNext()) {
             result = result + cursor.getString(index_CONTENT) + "; "
+                    + cursor.getString(index_CONTENT_2) + "; "
+                    + cursor.getString(index_CONTENT_3)
+                    + "\n";
+        }
+        return result;
+    }*/
+
+    /**
+     * Q5
+     * SELECT Content_2, sum(Value) FROM MY_TABLE_Form
+     * GROUP BY Content_2 (Ingredient)
+     * ORDER BY Content DESC
+     *
+     * @return
+     */
+    public String sumPriceByIngredient() {
+        String[] columns = new String[]{KEY_CONTENT_2, "sum(" + VALUE + ")"};
+        Cursor cursor = sqLiteDatabase.query(MYDATABASE_TABLE, columns,
+                null,
+                null, KEY_CONTENT_2, null, "sum(" + VALUE + ") "  + " DESC");
+        String result = "";
+
+        /** Get Column ID*/
+        int index_CONTENT_2 = cursor.getColumnIndex(KEY_CONTENT_2);
+        int index_CONTENT_3 = cursor.getColumnIndex("sum(" + VALUE + ")");
+        /** Loop Through Data*/
+        for (cursor.moveToFirst(); !(cursor.isAfterLast());
+             cursor.moveToNext()) {
+            result = result
                     + cursor.getString(index_CONTENT_2) + "; "
                     + cursor.getString(index_CONTENT_3)
                     + "\n";
