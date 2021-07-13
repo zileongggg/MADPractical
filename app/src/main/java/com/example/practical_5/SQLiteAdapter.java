@@ -62,8 +62,7 @@ public class SQLiteAdapter {
     public String queueMultipleColumn() {
         String[] columns = new String[]{KEY_CONTENT, KEY_CONTENT_2, VALUE};
         Cursor cursor = sqLiteDatabase.query(MYDATABASE_TABLE, columns,
-                KEY_CONTENT_2 + "=? OR " + KEY_CONTENT_2 + "=?",
-                new String[]{"Rice", "Flour"}, null, null, null);
+                null, null, null, null, VALUE + " DESC");
         String result = "";
 
         /** Get Column ID*/
