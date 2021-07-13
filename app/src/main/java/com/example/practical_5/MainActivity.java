@@ -24,16 +24,18 @@ public class MainActivity extends AppCompatActivity {
         // open to write
         mySQLiteAdapter.openToWrite();
         mySQLiteAdapter.deleteAll();
-        mySQLiteAdapter.insert("Burger");
-        mySQLiteAdapter.insert("Nasi Lemak");
-        mySQLiteAdapter.insert("Ayam Goreng");
-        mySQLiteAdapter.insert("Curry Laksa");
-        mySQLiteAdapter.insert("KFC");
+        mySQLiteAdapter.insert("Nasi Lemak", "Rice", 10);
+        mySQLiteAdapter.insert("Roti Canai", "Flour", 1);
+        mySQLiteAdapter.insert("Char Kuey Tiao", "Kuey Tiao", 6);
+        mySQLiteAdapter.insert("Kuih Nyonya", "Pandan", 2);
+        mySQLiteAdapter.insert("Ulam", "Vege", 12);
+        mySQLiteAdapter.insert("Nasi Kandar", "Rice", 10);
+        mySQLiteAdapter.insert("Curry Laksa", "Noodles", 21);
         mySQLiteAdapter.close();
 
         // open to read
         mySQLiteAdapter.openToRead();
-        String contentRead = mySQLiteAdapter.queueAll();
+        String contentRead = mySQLiteAdapter.queueMultipleColumn();
         mySQLiteAdapter.close();
 
         listContent.setText(contentRead);
